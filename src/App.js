@@ -1,9 +1,10 @@
 import React from 'react';
+import TimerBuilder from './components/TimerBuilder/TimerBuilder';
 
 function App() {
   return (
     <div className='App'>
-      <h2>APP</h2>
+      <TimerBuilder />
     </div>
   );
 }

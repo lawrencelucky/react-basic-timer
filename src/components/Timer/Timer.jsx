@@ -16,13 +16,17 @@ class Timer extends Component {
   inputChangeHandler = (e) => {
     const regex = /^[0-9\b]+$/;
 
+    if (e.target.value > 86400) {
+      alert('You should not exceed 24 hours!');
+      return;
+    }
+
     if (e.target.value === '' || regex.test(e.target.value)) {
       let timer = e.target.value;
       let seconds = timer % 60;
       let minutes = Math.floor((timer / 60) % 60);
       let hours = Math.floor(timer / 3600);
       this.setState({ timer, seconds, minutes, hours });
-      localStorage.setItem('timer', e.target.value);
     }
   };
 
@@ -51,8 +55,7 @@ class Timer extends Component {
   startTimerHandler = () => {
     if (this.state.timer <= 0) return;
     this.setState({ start: true });
-    let time = localStorage.getItem('timer');
-    this.countdown(time);
+    this.countdown(this.state.timer);
   };
 
   pauseTimerHandler = () => {
@@ -60,7 +63,7 @@ class Timer extends Component {
   };
 
   refreshTimerHandler = () => {
-    if (this.state.start === true) {
+    if (this.state.start === true || this.state.timer > 0) {
       this.setState({
         start: false,
         timer: 0,
@@ -91,42 +94,61 @@ class Timer extends Component {
       secs = `0${this.state.seconds}`;
     }
 
+    const mode = localStorage.getItem('mode');
+    let darkClass = 'timer-container';
+    let classes = 'set-timer-container';
+    if (this.state.start === true) {
+      classes += ' timer-started';
+    }
+
+    if (mode === 'true') {
+      darkClass += ' dark';
+    }
+
     return (
-      <div className='timer-container'>
-        <h2>
-          {this.state.hours <= 9 ? hrs : this.state.hours} :{' '}
-          {this.state.minutes <= 9 ? mins : this.state.minutes} :{' '}
-          {this.state.seconds <= 9 ? secs : this.state.seconds}
-        </h2>
-        <input
-          type='text'
-          value={this.state.timer}
-          placeholder='0'
-          onChange={this.inputChangeHandler}
-          onKeyDown={this.clearInputHandler}
-        />
-        <div className='icons-container'>
-          {!this.state.start ? (
+      <div className={darkClass}>
+        <div className='content-container'>
+          <div className={classes}>
+            <h2>
+              {this.state.hours <= 9 ? hrs : this.state.hours} :{' '}
+              {this.state.minutes <= 9 ? mins : this.state.minutes} :{' '}
+              {this.state.seconds <= 9 ? secs : this.state.seconds}
+            </h2>
+            <div className='input-container'>
+              <input
+                type='text'
+                value={this.state.timer}
+                placeholder='0'
+                onChange={this.inputChangeHandler}
+                onKeyDown={this.clearInputHandler}
+                autoFocus
+              />
+            </div>
+          </div>
+          <div className='icons-container '>
+            {!this.state.start ? (
+              <img
+                className='icon start-icon'
+                src={startIcon}
+                alt='start-icon'
+                onClick={this.startTimerHandler}
+              />
+            ) : (
+              <img
+                className='icon pause-icon'
+                src={pauseIcon}
+                alt='pause-icon'
+                onClick={this.pauseTimerHandler}
+              />
+            )}
+            <div className='line'></div>
             <img
               className='icon'
-              src={startIcon}
-              alt='start-icon'
-              onClick={this.startTimerHandler}
+              src={refreshIcon}
+              alt='refresh-icon'
+              onClick={this.refreshTimerHandler}
             />
-          ) : (
-            <img
-              className='icon'
-              src={pauseIcon}
-              alt='pause-icon'
-              onClick={this.pauseTimerHandler}
-            />
-          )}
-          <img
-            className='icon'
-            src={refreshIcon}
-            alt='refresh-icon'
-            onClick={this.refreshTimerHandler}
-          />
+          </div>
         </div>
       </div>
     );

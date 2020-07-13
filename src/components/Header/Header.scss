@@ -4,19 +4,32 @@
     justify-content: center;
     align-items: center;
     padding: 1rem;
+    box-shadow: 0px 5px 10px 0px rgba(234, 82, 248, 0.3);
+    transition: all 0.5s;
 
     h2 {
       text-transform: uppercase;
       margin-top: 0.5rem;
-      font-weight: 700;
+      font-weight: 600;
+      font-size: 2.5rem;
+      background: linear-gradient(45.34deg, #ea52f8 5.66%, #311b92 94.35%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .icons-container {
       margin-left: 1rem;
 
       .icon {
-        width: 3rem;
+        width: 2rem;
+        cursor: pointer;
       }
     }
+  }
+
+  .dark {
+    background-color: #00001c;
+    transition: all 0.5s;
   }
 }

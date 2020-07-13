@@ -5,9 +5,16 @@ import twitterIcon from '../../assets/icons/twitter-icon.svg';
 import linkedinIcon from '../../assets/icons/linkedin-icon.svg';
 
 const Footer = () => {
+  const mode = localStorage.getItem('mode');
+  let classes = 'footer fixed-bottom';
+
+  if (mode === 'true') {
+    classes += ' dark';
+  }
+
   return (
     <div className='footer-container'>
-      <footer className='footer fixed-bottom'>
+      <footer className={classes}>
         <div className='icons-container'>
           <a
             href='https://twitter.com/_lawrencelucky'

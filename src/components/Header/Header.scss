@@ -1,0 +1,22 @@
+.header-container {
+  .header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+
+    h2 {
+      text-transform: uppercase;
+      margin-top: 0.5rem;
+      font-weight: 700;
+    }
+
+    .icons-container {
+      margin-left: 1rem;
+
+      .icon {
+        width: 3rem;
+      }
+    }
+  }
+}

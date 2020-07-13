@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './Timer.scss';
 import startIcon from '../../assets/icons/start-icon.svg';
 import pauseIcon from '../../assets/icons/pause-icon.svg';
-import stopIcon from '../../assets/icons/stop-icon.svg';
 import refreshIcon from '../../assets/icons/refresh-icon.svg';
 
 class Timer extends Component {
@@ -60,7 +59,7 @@ class Timer extends Component {
     this.setState({ start: false });
   };
 
-  stopTimerHandler = () => {
+  refreshTimerHandler = () => {
     if (this.state.start === true) {
       this.setState({
         start: false,
@@ -70,13 +69,6 @@ class Timer extends Component {
         hours: 0,
       });
     }
-  };
-
-  refreshTimerHandler = () => {
-    let time = localStorage.getItem('timer');
-    this.stopTimerHandler();
-    this.startTimerHandler();
-    this.countdown(time);
   };
 
   clearInputHandler = (e) => {
@@ -115,40 +107,26 @@ class Timer extends Component {
         />
         <div className='icons-container'>
           {!this.state.start ? (
-            <button>
-              <img
-                className='icon'
-                src={startIcon}
-                alt='start-icon'
-                onClick={this.startTimerHandler}
-              />
-            </button>
+            <img
+              className='icon'
+              src={startIcon}
+              alt='start-icon'
+              onClick={this.startTimerHandler}
+            />
           ) : (
-            <button>
-              <img
-                className='icon'
-                src={pauseIcon}
-                alt='pause-icon'
-                onClick={this.pauseTimerHandler}
-              />
-            </button>
+            <img
+              className='icon'
+              src={pauseIcon}
+              alt='pause-icon'
+              onClick={this.pauseTimerHandler}
+            />
           )}
-          <button>
-            <img
-              className='icon'
-              src={stopIcon}
-              alt='stop-icon'
-              onClick={this.stopTimerHandler}
-            />
-          </button>
-          <button>
-            <img
-              className='icon'
-              src={refreshIcon}
-              alt='refresh-icon'
-              onClick={this.refreshTimerHandler}
-            />
-          </button>
+          <img
+            className='icon'
+            src={refreshIcon}
+            alt='refresh-icon'
+            onClick={this.refreshTimerHandler}
+          />
         </div>
       </div>
     );
